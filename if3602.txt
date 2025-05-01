@@ -1,0 +1,5 @@
+--- Résultats des Simulations ---
+Algorithme : FIFO | Défauts de Page : 9
+Algorithme : OPTIMAL | Défauts de Page : 7
+Algorithme : LRU | Défauts de Page : 7
+Algorithme : SECONDE_CHANCE | Défauts de Page : 9

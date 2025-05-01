@@ -1,0 +1,155 @@
+Début
+
+Définir fonction afficher_cadres(cadres)
+    Si cadres est vide
+        Afficher "Cadres: Vide"
+    Sinon
+        Afficher l'état des cadres formaté
+    Fin Si
+Fin Fonction
+
+Définir fonction afficher_simulation(chaine_reference, cadres_historique, defauts_page_positions)
+    Afficher les références de pages logiques
+    Afficher les cadres physiques à chaque étape
+    Afficher le total des défauts de page
+Fin Fonction
+
+Définir fonction afficher_simulation_seconde_chance(chaine_reference, cadres_historique, defauts_page_positions)
+    Afficher les références de pages logiques
+    Afficher les cadres physiques avec bits de référence à chaque étape
+    Afficher le total des défauts de page
+Fin Fonction
+
+Définir fonction simuler_fifo(donnees)
+    Initialiser variables pour les cadres, historique, défauts de page
+    Pour chaque page dans la chaîne de référence
+        Si la page est déjà en mémoire
+            Continuer
+        Sinon
+            Ajouter un défaut de page
+            Si mémoire non pleine
+                Ajouter la page
+            Sinon
+                Remplacer la page la plus ancienne
+            Fin Si
+        Fin Si
+        Ajouter l'état actuel des cadres à l'historique
+    Fin Pour
+    Afficher les résultats avec afficher_simulation
+Fin Fonction
+
+Définir fonction simuler_optimal(donnees)
+    Initialiser variables pour les cadres, historique, défauts de page
+    Pour chaque page dans la chaîne de référence
+        Si la page est déjà en mémoire
+            Continuer
+        Sinon
+            Ajouter un défaut de page
+            Si mémoire non pleine
+                Ajouter la page
+            Sinon
+                Remplacer la page utilisée le plus tardivement
+            Fin Si
+        Fin Si
+        Ajouter l'état actuel des cadres à l'historique
+    Fin Pour
+    Afficher les résultats avec afficher_simulation
+Fin Fonction
+
+Définir fonction simuler_lru(donnees)
+    Initialiser variables pour les cadres, historique, défauts de page, et suivi d'utilisation récente
+    Pour chaque page dans la chaîne de référence
+        Si la page est déjà en mémoire
+            Mettre à jour son utilisation récente
+        Sinon
+            Ajouter un défaut de page
+            Si mémoire non pleine
+                Ajouter la page
+            Sinon
+                Remplacer la page la moins récemment utilisée
+            Fin Si
+        Fin Si
+        Ajouter l'état actuel des cadres à l'historique
+    Fin Pour
+    Afficher les résultats avec afficher_simulation
+Fin Fonction
+
+Définir fonction simuler_seconde_chance(donnees)
+    Initialiser variables pour les cadres, historique, défauts de page, bits de référence
+    Pour chaque page dans la chaîne de référence
+        Si la page est déjà en mémoire
+            Mettre à jour son bit de référence
+        Sinon
+            Ajouter un défaut de page
+            Si mémoire non pleine
+                Ajouter la page avec bit de référence
+            Sinon
+                Remplacer la page avec bit de référence 0
+            Fin Si
+        Fin Si
+        Ajouter l'état actuel des cadres et bits de référence à l'historique
+    Fin Pour
+    Afficher les résultats avec afficher_simulation_seconde_chance
+Fin Fonction
+
+Définir fonction afficher_menu
+    Afficher les options du menu principal
+Fin Fonction
+
+Définir fonction obtenir_choix_utilisateur
+    Lire le choix de l'utilisateur
+    Retourner le choix
+Fin Fonction
+
+Définir fonction obtenir_donnees(donnees)
+    Afficher options pour saisir ou charger les données
+    Selon le choix
+        Saisir les données manuellement
+        Ou charger depuis un fichier
+    Fin Selon
+Fin Fonction
+
+Définir fonction saisir_donnees_manuellement(donnees)
+    Lire la chaîne de référence et la taille de mémoire
+    Stocker dans donnees
+Fin Fonction
+
+Définir fonction lire_donnees_depuis_fichier(donnees)
+    Lire les données depuis un fichier texte
+    Gérer les erreurs si le fichier est introuvable ou mal formaté
+Fin Fonction
+
+Définir fonction afficher_resultats(donnees)
+    Afficher les résultats des simulations pour chaque algorithme
+Fin Fonction
+
+Définir fonction generer_graphiques(donnees)
+    Si aucune simulation n'a été effectuée
+        Afficher un message d'erreur
+    Sinon
+        Générer un graphique avec Ruby2D
+    Fin Si
+Fin Fonction
+
+Définir fonction ecrire_resultats_dans_fichier(donnees, nom_fichier)
+    Écrire les résultats des simulations dans un fichier texte
+Fin Fonction
+
+Définir fonction menu_principal
+    Initialiser les données
+    Tant que l'utilisateur ne choisit pas de quitter
+        Afficher le menu
+        Lire le choix de l'utilisateur
+        Selon le choix
+            Obtenir les données
+            Exécuter une simulation (FIFO, Optimal, LRU, Seconde Chance)
+            Afficher les résultats
+            Générer des graphiques
+        Fin Selon
+    Fin Tant que
+    Écrire les résultats dans un fichier
+Fin Fonction
+
+Appeler menu_principal
+
+Fin

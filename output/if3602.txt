@@ -1,0 +1,4 @@
+Algorithme FIFO | 3
+Algorithme Optimal | 3
+Algorithme LRU | 3
+Algorithme Second Chance | 3
